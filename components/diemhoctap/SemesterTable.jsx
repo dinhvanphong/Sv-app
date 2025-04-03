@@ -21,27 +21,27 @@ export default function SemesterTable({data}) {
         }}>
         <View style={[styles.row]}>
           <Text style={[styles.herder]}>STT</Text>
-          {/* <Text>{item.item.stt}</Text> */}
+          <Text>{item.item.stt}</Text>
         </View>
         <View style={[styles.row]}>
           <Text style={[styles.herder]}>Mã môn học</Text>
-          {/* <Text>{item.item.mamonhoc}</Text> */}
+          <Text>{item.item.mamonhoc || "..."}</Text>
         </View>
         <View style={[styles.row]}>
           <Text style={[styles.herder]}>Tên môn học</Text>
-          {/* <Text>{item.item.tenmonhoc}</Text> */}
+          <Text>{item.item.tenmonhoc || "..."}</Text>
         </View>
         <View style={[styles.row]}>
           <Text style={[styles.herder]}>Khối lượng</Text>
-          {/* <Text>{item.item.khoiluong}</Text> */}
+          <Text>{item.item.kl || "..."}</Text>
         </View>
         <View style={[styles.row]}>
           <Text style={[styles.herder]}>Điểm quá trình</Text>
-          {/* <Text>{item.item.diemthang10}</Text> */}
+          <Text>{item.item.dqt || "..."}</Text>
         </View>
         <View style={[styles.row]}>
           <Text style={[styles.herder]}>Điểm thi 1</Text>
-          {/* <Text>{item.item.diemthang4}</Text> */}
+          <Text>{item.item.diemthi1 || "..."}</Text>
         </View>
         <View style={[styles.row]}>
           <Text style={[styles.herder]}>Điểm tổng hợp 1</Text>
@@ -49,7 +49,7 @@ export default function SemesterTable({data}) {
         </View>
         <View style={[styles.row]}>
           <Text style={[styles.herder]}>Điểm thi 2</Text>
-          {/* <Text>{item.item.diemchu}</Text> */}
+          <Text>{item.item.diemthi2 || "..."}</Text>
         </View>
         <View style={[styles.row]}>
           <Text style={[styles.herder]}>Điểm tổng hợp 2</Text>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#fff',
   },
   herder: {
-   width: wp(30),
+   width: wp(35),
    fontWeight: 'bold'
   }
 

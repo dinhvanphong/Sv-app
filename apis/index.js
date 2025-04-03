@@ -78,9 +78,20 @@ export const getSemesterStudentAPI = async (msv, hocky ,namhoc, token) => {
   })
   return response.data
 }
-
+// Lấy thông tin điểm trung bình của sinh viên
 export const getAVG_API = async (msv, token) => {
   const response = await axios.get(`${process.env.EXPO_PUBLIC_AVG_API}${msv}`, {
+    method: "GET",
+    headers:{
+      "Content-Type": "application/json",
+      authorization : `Bearer ${token}`
+    }
+  })
+  return response.data
+}
+
+export const getOweAPI = async (msv, token) => {
+  const response = await axios.get(`${process.env.EXPO_PUBLIC_OWE_API}${msv}`, {
     method: "GET",
     headers:{
       "Content-Type": "application/json",

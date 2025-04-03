@@ -19,6 +19,10 @@ export default function MenuLayout() {
         options={{ title: 'Khoản đã nộp' }}      
         name="khoanDaNop"
       />
+       <Stack.Screen 
+        options={{ title: 'Nợ môn' }}      
+        name="noMon"
+      />
     </Stack>
   )
 }

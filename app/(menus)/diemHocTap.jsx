@@ -6,16 +6,15 @@ import { useAuth,useUser } from '@clerk/clerk-expo'
 import Loading from '@/components/Loading';
 import { Colors } from '@/constants/Color';
 import {getAllScoreStudentAPI, getSemesterStudentAPI} from '@/apis'
-import AllScoreStudent from '@/components/diemhoctap/AllScoreStudent';
+import AllScoreStudentTable from '@/components/diemhoctap/AllScoreStudentTable';
 import SemesterTable from '@/components/diemhoctap/SemesterTable';
 
-const FirstRoute = () =>{
+const SemesterStudent = () =>{
   const { getToken } = useAuth();
   const { user } = useUser()
 
   const [dataSemesterStudent, setDataSemesterStudent] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(dataSemesterStudent)
   useEffect(() => {
     async function getData() {
       try {
@@ -51,7 +50,7 @@ const FirstRoute = () =>{
   );
 }
 
-const SecondRoute = () => {
+const AllScoreStudent = () => {
   const { getToken } = useAuth();
   const { user } = useUser()
 
@@ -85,7 +84,7 @@ const SecondRoute = () => {
     <View style={{ flex: 1, paddingHorizontal: 10}}>
       {loading
         ? <Loading size='large' style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}/>
-        : <AllScoreStudent data={dataAllScoreStudent}/>
+        : <AllScoreStudentTable data={dataAllScoreStudent}/>
       }
     </View>
   );
@@ -93,8 +92,8 @@ const SecondRoute = () => {
 
 
 const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
+  first: SemesterStudent,
+  second: AllScoreStudent,
 });
 
 const routes = [

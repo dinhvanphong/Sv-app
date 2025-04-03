@@ -25,11 +25,11 @@ export const sideBarData = [
       //   path: "/study/warning",
       //   icon: <RiErrorWarningLine />,
       // },
-      // {
-      //   title: "Nợ môn",
-      //   path: "/study/owe",
-      //   icon: <MdOutlineSmsFailed />,
-      // },
+      {
+        title: "Nợ môn",
+        path: "(menus)/noMon",
+        icon: "alert",
+      },
     ],
   },
   {

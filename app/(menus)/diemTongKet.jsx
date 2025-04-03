@@ -113,11 +113,11 @@ export default function DiemTongKet() {
                   </View>
                 </View>
               </View>
-              <Text style={{ fontWeight: 'bold', fontSize: 18, color: Colors.primary, marginVertical: 10 }}>Điểm trung bình học kỳ 1:</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 18, color: Colors.primary, marginVertical: 10 }}>Điểm trung bình học kỳ lần 1:</Text>
               {dataAVG !== "empty" && dataAVG.hk_lan_1.map((item, index) => (
                 <ItemTable item={item} index={index} key={index}/> 
               ))}
-              <Text style={{ fontWeight: 'bold', fontSize: 18, color: Colors.primary, marginVertical: 10 }}>Điểm trung bình học kỳ 2:</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 18, color: Colors.primary, marginVertical: 10 }}>Điểm trung bình học kỳ lần 2:</Text>
               {dataAVG !== "empty" && dataAVG.hk_lan_2.map((item, index) => (
                 <ItemTable item={item} index={index} key={index}/> 
               ))}

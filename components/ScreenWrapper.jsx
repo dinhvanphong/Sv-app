@@ -1,6 +1,6 @@
 import { View, Text, StatusBar } from 'react-native'
 import React from 'react'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function ScreenWrapper({children, bg, classNameCustom, style}) {
 

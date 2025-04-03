@@ -1,16 +1,68 @@
-import { View, Text, Image, TextInput, TouchableOpacity, TouchableWithoutFeedback,Keyboard  } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, Alert  } from 'react-native'
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSignIn } from '@clerk/clerk-expo'
 
 
 import { Colors } from '@/constants/Color'
 import ScreenWrapper from '@/components/ScreenWrapper'
 import { wp, hp } from '@/helpers/common'
+import Loading from '@/components/Loading';
 export default function SignIn() {
   const router = useRouter();
-  const handleLogin = () => {
-    
+  const { signIn, setActive, isLoaded } = useSignIn()
+
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [progress, setProgress] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleLogin = async () => {
+    setLoading(true)
+    if (!isLoaded) return
+
+    if(userName === '' || password === '') {
+      Alert.alert("Thông báo", "Vui lòng điền đầy đủ thông tin");
+      setLoading(false);
+    } else {
+      // Start the sign-in process using the email and password provided
+      var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+      try {
+        const signInAttempt = await signIn.create({
+          identifier: userName.match(pattern) ? userName : userName + "z",
+          // identifier:userName,
+          password,
+        })
+  
+        // If sign-in process is complete, set the created session as active
+        // and redirect the user
+        if (signInAttempt.status === 'complete') {
+          await setActive({ session: signInAttempt.createdSessionId })
+          router.replace('(tabs)/home')
+        } else {
+          // If the status isn't complete, check why. User might need to
+          // complete further steps.
+          console.error(JSON.stringify(signInAttempt, null, 2))
+          Alert.alert("Thông báo", "loi");
+          setLoading(false);
+        }
+      } catch (err) {
+        // See https://clerk.com/docs/custom-flows/error-handling
+        // for more info on error handling
+        if (userName === "") {
+          Alert.alert("Thông báo", "Vui lòng điền đầy đủ thông tin");
+        } else if (err.errors[0].message === "Couldn't find your account.") {
+          Alert.alert("Thông báo", "Email hoăc mã sinh viên không tồn tại");
+        } else if (err.errors[0].message === "Password is incorrect. Try again, or use another method.") {
+          Alert.alert("Thông báo", "Mật khẩu không chính xác. Vui lòng nhập lại!");
+        }
+        console.error(JSON.stringify(err, null, 2))
+        setLoading(false);
+      }
+    }
+    setLoading(false)
   }
+  console.log(progress)
+
   return (
     <ScreenWrapper>
       <Image source={require('../../assets/images/logoo.png')} style={{height:wp(50), width:wp(50), margin:'auto'}}/>
@@ -22,6 +74,8 @@ export default function SignIn() {
             <Text style={{fontWeight:600}}>Email hoặc mã sinh viên:</Text>
             <TextInput
               placeholder='Nhập email hoặc mã sinh viên'
+              value={userName}
+              onChangeText={setUserName}
               style={{
                 width: "100%",
                 height: 50,
@@ -39,6 +93,8 @@ export default function SignIn() {
             <Text style={{fontWeight:600}}>Mật khẩu:</Text>
             <TextInput
               placeholder='Nhập mật khẩu'
+              value={password}
+              onChangeText={setPassword}
               secureTextEntry
               style={{
                 width: "100%",
@@ -65,17 +121,20 @@ export default function SignIn() {
               borderRadius: 10,
             }} 
             onPress={handleLogin}>
-            <Text 
-              style={{ color: "#fff",
-              fontSize: 18,
-              fontWeight: "bold",
-              }}
-            >Đăng Nhập</Text>
+              {loading
+              ? <Loading size='small' color='#fff' />
+              : <Text 
+                  style={{ color: "#fff",
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  }}
+                >Đăng nhập</Text>}
+                
           </TouchableOpacity>
 
-          <Text style={{textAlign:'center'}}>
+          {/* <Text style={{textAlign:'center'}}>
             Bạn chưa có tài khoản? <Text style={{color:Colors.primary}} onPress={() => router.push('(auth)/signUp')}>Đăng ký</Text>
-          </Text>
+          </Text> */}
           <Text style={{color:Colors.primary, textAlign:'center', marginVertical: 10}} onPress={() => router.push('(tabs)/home')}>Trang chủ</Text>
           
         </View>

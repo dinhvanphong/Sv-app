@@ -4,6 +4,8 @@ import React from 'react'
 
 import HeaderScreenMenu from '../../components/HeaderScreenMenu';
 import ScreenWrapper from "../../components/ScreenWrapper";
+import {sideBarData} from '@/components/sideBarData';
+import SubMenu from '@/components/subMenu';
 
 export default function menu() {
   const router = useRouter();
@@ -13,8 +15,9 @@ export default function menu() {
         <HeaderScreenMenu/>
       </View>
       <ScrollView>
-      <Text onPress={() => router.push('(menus)/chuongTrinhDaoTao')}>mgjsdpifjohienu</Text>
-
+      {/* <Text onPress={() => router.push('(menus)/chuongTrinhDaoTao')}>mgjsdpifjohienu</Text> */}
+        
+        {sideBarData.map((item, index) => <SubMenu key={index} item={item} sideName={index} />)}
 
       </ScrollView>
     </View>
